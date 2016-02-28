@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#define n 3
+#define m 5
+
+int main()
+{
+	int a[m], no, i, j, c, min, temp;
+	srand(time(NULL));
+	for (i = 0; i < m; i++){
+		a[i] = (rand());
+	}
+	for (i = 1; i < m; i++){
+		c = i;
+		do{
+			min = (c - 1) / 2;
+			if (a[min] < a[c]){
+				temp = a[min];
+				a[min] = a[c];
+				a[c] = temp;
+			}
+			c = min;
+		}
+		while (c != 0);
+	}
+	printf("Heap array : ");
+	for (i = 0; i < m; i++)
+		printf("%d\t ", a[i]);
+	for (j = m - 1; j >= 0; j--){
+		temp = a[0];
+		a[0] = a[j];
+		a[j] = temp;
+		min = 0;
+		do{
+			c = 2 * min + 1;
+			if ((a[c] < a[c + 1]) && c < j-1)
+				c++;
+			if (a[min]<a[c] && c<j){
+				temp = a[min];
+				a[min] = a[c];
+				a[c] = temp;
+			}
+			min = c;
+		}
+		while (c < j);
+	}
+	printf("\n The sorted array is : ");
+	for (i = 0; i < m; i++)
+		printf("\t %d", a[i]);
+	return 0;
+}
