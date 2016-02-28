@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #define n 3
-#define m 5
+#define m 100
 
 int main()
 {
@@ -24,9 +24,6 @@ int main()
 		}
 		while (c != 0);
 	}
-	printf("Heap array : ");
-	for (i = 0; i < m; i++)
-		printf("%d\t ", a[i]);
 	for (j = m - 1; j >= 0; j--){
 		temp = a[0];
 		a[0] = a[j];
@@ -45,8 +42,7 @@ int main()
 		}
 		while (c < j);
 	}
-	printf("\n The sorted array is : ");
 	for (i = 0; i < m; i++)
-		printf("\t %d", a[i]);
+		printf("\t %d\n", a[i]);
 	return 0;
 }
