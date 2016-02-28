@@ -14,7 +14,7 @@ int main()
 	for (i = 1; i < m; i++){
 		c = i;
 		do{
-			min = (c - 1) / 2;
+			min = (c - 1);
 			if (a[min] < a[c]){
 				temp = a[min];
 				a[min] = a[c];
