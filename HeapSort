@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define n 3
+
 #define m 100
 
 int main()
 {
-	int a[m], no, i, j, c, min, temp;
+	int a[m], i, j, c, min, temp;
 	srand(time(NULL));
 	for (i = 0; i < m; i++){
 		a[i] = (rand());
