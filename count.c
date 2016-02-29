@@ -3,16 +3,16 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-void count();
+void counting_sort();
+double wtime()
+{
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
+}
+
 int main(int argc, char * argv[])
 {
-	double wtime()
-	{
-	    struct timeval t;
-	    gettimeofday(&t, NULL);
-	    return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
-	}
-
 	int n;
 	if (argc < 2){
 		fprintf (stderr, "error\n");
@@ -25,48 +25,35 @@ int main(int argc, char * argv[])
 		fprintf (stderr, "count; No enough memory\n");
 		exit (EXIT_FAILURE);
 	}
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
 		a[i] =  (double) rand() / (RAND_MAX + 1.0) * 100001;
-	}
-	printf("call count\n");
-	count(&a, n);
-	double t = wtime();
-	
+   	double t = wtime();
+	counting_sort(a, n);	
 	t = wtime() - t;
-	printf("%d %.6f\n",n,t);
+	printf("time %.6f sec.\n", t);
+    return 0;
 }
 
-void count(uint32_t *a, int n)
-{
-	int i, min = a[0], max = a[0];
+	void counting_sort(uint32_t *a, int n){
 
-    for (i = 1; i < n; i++){
-        if (a[i] < min)
-            min = a[i];
-        else
-        if (a[i] > max)
-            max = a[i];
-    }
-	uint32_t *c = (uint32_t*)malloc(sizeof(uint32_t)*(max-min+1));
-	uint32_t *b = (uint32_t*)malloc(sizeof(uint32_t)*n);
+	int i, j, idx = 0;
+	int min = a[0];
+	int max = a[0];
 	
-	printf("variables init\n");
-	for (i = 1; i < max-min + 1; i++)
-		c[i] = 0;
-	printf("zeroes created\n");
-	for (i = 1; i < n; i++)
-		c[a[i]-min]++;
-	printf("c is full\n");
-	for (i = 1; i < max-min + 1; i++)
-		c[i] = c[i] + c[i-1];
-	printf("hz \n");
-	for (i = n - 1; i<=0; i++) {
-		c[a[i]] = c[a[i]] - 1;
-		b[c[a[i]]] = a[i];
-	}
-	printf("count end\n");
-	for (i = 1; i < n; i++)
-		printf("%d ",b[i]);
-	free (b);
-	free (c);
+	for(i = 1; i < n; i++){
+		if(a[i] < min)
+			min = a[i];
+		if(a[i] > max)
+			max = a[i];
+		}
+	int k = max - min + 1;
+	int b[k];
+	for(i = 0; i < k; i++)
+		b[i] = 0;
+	
+	for(i = 0; i < n; i++)
+		b[a[i] - min]++;
+	for(i = min; i <= max; i++)
+	for(j = 0; j < b[i - min]; j++)
+		a[idx++] = i;
 }
