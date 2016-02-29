@@ -23,7 +23,7 @@ int main()
 	for (i = 1; i < m; i++){      //Сортирует числа по убыванию
 		c = i;
 		do{
-			min = (c - 1);
+			min = (c - 1) / 2;
 			if (a[min] < a[c]){
 				temp = a[min];
 				a[min] = a[c];
