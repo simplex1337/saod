@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -r *.log
 echo "Testing "$@""
 for i in "$@"
 do
@@ -8,5 +9,6 @@ do
     do
         echo "$a"
         ./${i} "$a"
-    done 
+    done
 done
+./mkplot.sh
