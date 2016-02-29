@@ -71,7 +71,5 @@ void heap(uint32_t a[], int n)
 		}
 		while (c < j);
 	}
-	for (i = 0; i < n; i++)
-		printf("\t %d \n", a[i]);
 }
 
