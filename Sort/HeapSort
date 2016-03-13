@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#define n 3
+#define m 100
+
+double wtime()
+{
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
+}
+
+int main()
+{
+	int a[m], i, j, c, min, temp;
+	srand(time(NULL));
+	for (i = 0; i < m; i++){
+		a[i] = (rand());
+	}
+	double t;
+	t = wtime();
+	for (i = 1; i < m; i++){      //Сортирует числа по убыванию
+		c = i;
+		do{
+			min = (c - 1) / 2;
+			if (a[min] < a[c]){
+				temp = a[min];
+				a[min] = a[c];
+				a[c] = temp;
+			}
+			c = min;
+		}
+		while (c != 0);
+	}
+	for (j = m - 1; j >= 0; j--){ //Сортирует числа первого for по возростанию
+		temp = a[0];
+		a[0] = a[j];
+		a[j] = temp;
+		min = 0;
+		do{
+			c = min + 1;
+			if ((a[c] < a[c + 1]) && c < j-1)
+				c++;
+			if (a[min]<a[c] && c<j){
+				temp = a[min];
+				a[min] = a[c];
+				a[c] = temp;
+			}
+			min = c;
+		}
+		while (c < j);
+	}
+	t = wtime() - t;
+	for (i = 0; i < m; i++)
+		printf("\t %d \n", a[i]);
+	printf("Elapsed time: %.6f sec.\n", t);
+	return 0;
+}
