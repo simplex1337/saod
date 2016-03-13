@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <inttypes.h>
 #include <sys/time.h>
 #include <math.h>
 
-void MergeSort(int a[], int l, int h);
-void Merge(int a[], int l, int m, int h);
+void MergeSort(uint32_t a[], int low, int high);
+void Merge(uint32_t a[], int l, int m, int r);
 double wtime();
 
 double wtime()
@@ -15,7 +15,7 @@ double wtime()
     return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
 }
 
-void MergeSort(int a[], int low, int high)
+void MergeSort(uint32_t a[], int low, int high)
 {
     if (low < high) {
         int mid = floor((low + high) / 2);
@@ -25,12 +25,12 @@ void MergeSort(int a[], int low, int high)
     }
 }
 
-void Merge(int a[], int l, int m, int r)
+void Merge(uint32_t a[], int l, int m, int r)
 {
     int i, j, k;
     int n1 = m - l + 1;
     int n2 =  r - m;
-    int L[n1], R[n2];
+    uint32_t L[n1], R[n2];
     for(i = 0; i < n1; i++)
         L[i] = a[l + i];
     for(j = 0; j < n2; j++)
@@ -64,10 +64,19 @@ void Merge(int a[], int l, int m, int r)
 
 int main(int argc, char *argv[]) 
 {
+    if (argv[1] == NULL) {
+		fprintf (stderr, "Please, enter a valid num of elements of arrays or run test_arr.sh for testing.\n");
+		exit (EXIT_FAILURE);
+    }
 	int m = atoi(argv[1]);
-    int i, a[m];
+    int i;
+    uint32_t a[m];
     printf("m = %d\n", m);
-    FILE *data = fopen("dig.txt", "r");
+    FILE *data = fopen("data.txt", "r");
+    if (data == NULL) {
+        fprintf(stderr, "Error, no dig.txt. Please, run mkdata.sh once to fix it\n");
+        exit (EXIT_FAILURE);
+    }
 	for (i = 0; i < m; i++)
 		fscanf (data, "%d\n", &a[i]);
     fclose(data);

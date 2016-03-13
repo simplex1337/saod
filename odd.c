@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <inttypes.h>
 #include <sys/time.h>
 
-void OddEvenSort(int a[], int n);
+void OddEvenSort(uint32_t a[], int n);
 double wtime();
 
 double wtime()
@@ -13,7 +13,7 @@ double wtime()
     return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
 }
 
-void OddEvenSort(int a[], int n)
+void OddEvenSort(uint32_t a[], int n)
 {
     for (int i = 0; i < n; i++) {
         if (i & 1) {
@@ -42,10 +42,19 @@ void OddEvenSort(int a[], int n)
 
 int main(int argc, char *argv[]) 
 {
+    if (argv[1] == NULL) {
+		fprintf (stderr, "Please, enter a valid num of elements of arrays or run test_arr.sh for testing.\n");
+		exit (EXIT_FAILURE);
+    }
 	int m = atoi(argv[1]);
-    int i, a[m];
+    int i;
+    uint32_t a[m];
     printf("m = %d\n", m);
-    FILE *data = fopen("dig.txt", "r");
+    FILE *data = fopen("data.txt", "r");
+    if (data == NULL) {
+        fprintf(stderr, "Error, no dig.txt. Please, run mkdata.sh once to fix it\n");
+        exit (EXIT_FAILURE);
+    }
 	for (i = 0; i < m; i++)
 		fscanf (data, "%d\n", &a[i]);
     fclose(data);

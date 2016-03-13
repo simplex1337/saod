@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <inttypes.h>
 #include <sys/time.h>
 
 double wtime();
@@ -12,9 +12,10 @@ double wtime()
     return (double)t.tv_sec + (double)t.tv_usec * 1E-6;
 }
 
-void radix_sort(int *a, int n) 
+void radix_sort(uint32_t a[], int n) 
 {
-	int i, b[n], m = 0, exp = 1;
+	int i, m = 0, exp = 1;
+    uint32_t b[n];
 	for (i = 0; i < n; i++) {
         if (a[i] > m)
 		   m = a[i];
@@ -38,17 +39,26 @@ void radix_sort(int *a, int n)
 
 int main(int argc, char *argv[]) 
 {
-	int n = atoi(argv[1]);
-    int i, a[n];
-    printf("n = %d\n", n);
-	FILE *data = fopen("dig.txt", "r");
-	for (i = 0; i < n; i++)
+    if (argv[1] == NULL) {
+		fprintf (stderr, "Please, enter a valid num of elements of arrays or run test_arr.sh for testing.\n");
+		exit (EXIT_FAILURE);
+    }
+	int m = atoi(argv[1]);
+    int i;
+    uint32_t a[m];
+    printf("m = %d\n", m);
+    FILE *data = fopen("data.txt", "r");
+    if (data == NULL) {
+        fprintf(stderr, "Error, no dig.txt. Please, run mkdata.sh once to fix it\n");
+        exit (EXIT_FAILURE);
+    }
+	for (i = 0; i < m; i++)
 		fscanf (data, "%d\n", &a[i]);
     fclose(data);
     double t;
     t = wtime();
-	radix_sort(a, n);
+	radix_sort(a, m);
     t = wtime() - t;
     FILE *log = fopen("radix.log", "a");
-	return fprintf(log, "%d  %.6f\n", n, t);
+	return fprintf(log, "%d  %.6f\n", m, t);
 }
