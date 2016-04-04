@@ -1,18 +1,14 @@
-#ifndef BSTREE_H
-#define BSTREE_H
+#ifndef bstree_h
+#define bstree_h
 
-typedef struct bsdata
+/*struct bstree
 {
-	int value;
-	char *key;
-} Data;
-
-typedef struct bstree
-{
-	Data data;
+	int key; //Ключ
+	char *value; //Данные
 	struct bstree *left;
 	struct bstree *right;
-} BSTree;
+}
+*/
 
 struct bstree *bstree_create(int key, char *value);
 void bstree_add(struct bstree *tree, int key, char *value);
@@ -21,4 +17,3 @@ struct bstree *bstree_min(struct bstree *tree);
 struct bstree *bstree_max(struct bstree *tree);
 
 #endif
- 
