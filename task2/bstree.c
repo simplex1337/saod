@@ -22,22 +22,6 @@ struct bstree *bstree_create(int key, char *value) //Создание дерев
 	return node;
 }
 
-int main()
-{
-	struct bstree *tree, *node;
-
-	tree = bstree_create(180, "Tigr");
-	bstree_add(tree, 200, "Lev");
-	bstree_add(tree, 60, "Volk");
-
-	node = bstree_lookup(tree, 200);
-	printf("Value= %s\n", node->value);
-	
-	node = bstree_min(tree);
-	printf("Min:value= %s\n", node->value);
-	return 0;
-}
-
 void bstree_add(struct bstree *tree, int key, char *value)
 {
 	struct bstree *parent, *node;
@@ -94,4 +78,20 @@ struct bstree *bstree_max(struct bstree *tree)
 	while (tree->right != NULL)
 		tree = tree->right;
 	return tree;
+}
+
+int main()
+{
+	struct bstree *tree, *node;
+
+	tree = bstree_create(180, "Tigr");
+	bstree_add(tree, 200, "Lev");
+	bstree_add(tree, 60, "Volk");
+
+	node = bstree_lookup(tree, 200);
+	printf("Value= %s\n", node->value);
+	
+	node = bstree_min(tree);
+	printf("Min:value= %s\n", node->value);
+	return 0;
 }
