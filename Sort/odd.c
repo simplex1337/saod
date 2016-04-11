@@ -16,7 +16,7 @@ double wtime()
 void odd_even_sort(uint32_t a[], int n)
 {
     for (int i = 0; i < n; i++) {
-        if (i & 1) {
+        if (i & 1)
             for (int j = 2; j < n; j += 2) {
                 if (a[j] < a[j - 1]) {
                     int temp;
@@ -24,8 +24,7 @@ void odd_even_sort(uint32_t a[], int n)
                     a[j - 1] = a[j];
                     a[j] = temp;
                 }
-            }
-        } else {
+        } else
             for (int j = 1; j < n; j += 2) {
                 if (a[j] < a[j - 1]) {
                     int temp;
@@ -34,7 +33,6 @@ void odd_even_sort(uint32_t a[], int n)
                     a[j] = temp;
                 }
             }
-        }
     }
 }
 

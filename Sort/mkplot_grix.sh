@@ -19,7 +19,13 @@ set rmargin 4
 set tmargin 2
 set mxtics
 
-plot "merge.log" using 1:2 title "MergeSort" with linespoints ls 2
-plot "odd.log" using 2:2 title "OddSort" with linespoints ls 2
-plot "radix.log" using 3:2 title "RadixSort" with linespoints ls 2
+#set output 'sort_all.png'
+plot "datamerg.dat" using 1:2 title "Merge Sort" with linespoints ls 1, \
+	"databubb.dat" using 1:2 title "Bubble Sort" with linespoints ls 3, \
+	"datacoun.dat" using 1:2 title "Counting Sort" with linespoints ls 2
+
+set output 'sort_candm.png'
+plot "datamerg.dat" using 1:2 title "Merge Sort" with linespoints ls 1, \
+	"datacoun.dat" using 1:2 title "Counting Sort" with linespoints ls 2
+
 

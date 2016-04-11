@@ -16,15 +16,11 @@ void radix_sort(uint32_t a[], int n)
 {
     int i, m = 0, exp = 1;
     uint32_t b[n];
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < n; i++)
         if (a[i] > m)
             m = a[i];
-    }
     while (m / exp > 0) {
-        int box[10] = {
-            0
-        }
-        ;
+        int box[10] = { 0 };
         for (i = 0; i < n; i++)
             box[a[i] / exp % 10]++;
         for (i = 1; i < 10; i++)
