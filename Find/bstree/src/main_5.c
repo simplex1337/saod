@@ -22,12 +22,13 @@ int main()
 {
     FILE *data = fopen("lol.txt", "r");
     FILE *data_r = fopen("base.txt", "r");
-    FILE *log = fopen("bstree_5.log", "a");
     int i;
     for (i = 0; i < 200000; i++) {
         fscanf(data_r, "%s\n", word_r[i]);
         fscanf(data, "%s\n", word[i]);
     }
+    fclose(data);
+    fclose(data_r);
     struct bstree *tree;
     struct bstree *tree_r;
     tree = bstree_create(word[0], 0);
@@ -36,6 +37,7 @@ int main()
         bstree_add(tree, word[i - 1], i - 1);
         bstree_add(tree_r, word_r[i - 1], i - 1);
         if (i % 10000 == 0) {
+            FILE *log = fopen("bstree_5.log", "a");
             fprintf(log, "%d\t", i);
             char *w = word[i-1];
             char *w_r = word_r[i-1];
@@ -53,6 +55,7 @@ int main()
             printf("%s\n", node_r->key);
             printf("avrg case: n = %d; time = %.6f\n", i, t);
             fprintf(log, "%.6f\n", t);
+            fclose(log);
         }
     }
     return 0;

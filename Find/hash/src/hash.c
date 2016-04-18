@@ -15,7 +15,7 @@ unsigned int xor_hash(char *key)
     unsigned int h = 0;
     for (p = key; *p != '\0'; p++)
         h ^= *p;
-    return h % HASHTAB_SIZE;
+    return h;
 }
 
 void hashtab_init(struct listnode **hashtab)

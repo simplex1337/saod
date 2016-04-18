@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define HASHTAB_SIZE 1000
-#define HASHTAB_MUL 31
+#define HASHTAB_SIZE 1001
+#define HASHTAB_MUL 253
 
 typedef struct listnode {
     char *key;
