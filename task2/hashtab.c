@@ -63,7 +63,7 @@ void hashtab_delete(struct listnode **hashtab, char *key)
 	}
 }
 
-int main()
+/*int main()
 {
 	struct listnode *node;
 	hashtab_init(hashtab);
@@ -74,3 +74,4 @@ int main()
 	printf("Node: %s, %d\n", node->key, node->value);
 	return 0;	
 }
+*/
