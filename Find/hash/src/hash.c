@@ -11,13 +11,12 @@ unsigned int hashtab_hash(char *key)
 
 unsigned int djb_hash(char *key)
 {
-    char *p;
+    unsigned char *p;
     unsigned int h = 0;
     int i;
-    for (i = 0; *p != '\0'; i++)
+    for (i = 0, p = key; *p != '\0'; i++, p++)
     {
         h = 33 * h ^ p[i];
-        p++;
     }
 
     return h;
