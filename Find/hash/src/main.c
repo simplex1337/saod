@@ -31,7 +31,7 @@ int main()
     for (i = 1; i <= 200000; i++) {
         hashtab_add_kp(hashtab_kp, word[i], i);
         if (i % 10000 == 0) 
-            for (n = 0; n < 100; n++) {
+            for (n = 0; n < 10; n++) {
                 sleep(1);
                 char *w = word[getrand(0, i)];
                 printf("%s\n", w);

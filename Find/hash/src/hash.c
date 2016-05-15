@@ -1,5 +1,7 @@
 #include "hash.h"
 
+#define DJBHASH_MAX_BUCKETS 65536
+
 unsigned int hashtab_hash(char *key)
 {
     unsigned int h = 0;
@@ -11,12 +13,15 @@ unsigned int hashtab_hash(char *key)
 
 unsigned int djb_hash(char *key)
 {
-    unsigned char *p;
+    unsigned char *p = key;
     unsigned int h = 0;
+    int len = 0;
     int i;
-    for (i = 0, p = key; *p != '\0'; i++, p++)
+    for (p = key; *p != '\0'; p++)
+		len++;
+    for (i = 0; i < len; i++)
     {
-        h = 33 * h ^ p[i];
+        h = 33 * h + p[i];
     }
 
     return h;

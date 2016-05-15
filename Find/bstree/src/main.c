@@ -30,7 +30,7 @@ int main()
     for (i = 2; i <= 200000; i++) {
         bstree_add(tree, word[i - 1], i - 1);
         if (i % 10000 == 0)
-            for (n = 0; n < 100; n++) {
+            for (n = 0; n < 10; n++) {
                 sleep(1);
                 char *w = word[getrand(0, i - 1)];
                 printf("%s\n", w);
