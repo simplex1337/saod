@@ -9,17 +9,18 @@ unsigned int hashtab_hash(char *key)
     return h % HASHTAB_SIZE;
 }
 
-unsigned djb_hash(char *key)
+unsigned int djb_hash(char *key)
 {
-   unsigned int hash = 5381;
-   unsigned int i    = 0;
-   char *p;
-   for (p = key; *p != '\0'; p++)
-   {
-      hash = ((hash << 5) + hash) + (*p);
-   }
+    char *p;
+    unsigned int h = 0;
+    int i;
+    for (i = 0; *p != '\0'; i++)
+    {
+        h = 33 * h ^ p[i];
+        p++;
+    }
 
-   return hash;
+    return h;
 }
 
 void hashtab_init(struct listnode **hashtab)
