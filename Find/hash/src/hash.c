@@ -9,12 +9,17 @@ unsigned int hashtab_hash(char *key)
     return h % HASHTAB_SIZE;
 }
 
-unsigned int xor_hash(char *key)
+unsigned djb_hash(char *key)
 {
     unsigned char *p;
     unsigned int h = 0;
+    int i;
+
     for (p = key; *p != '\0'; p++)
-        h ^= *p;
+    {
+        h = 33 * h + p[i];
+    }
+
     return h;
 }
 
@@ -38,10 +43,10 @@ void hashtab_add_kp(struct listnode **hashtab, char *key, int value)
     }
 }
 
-void hashtab_add_xor(struct listnode **hashtab, char *key, int value)
+void hashtab_add_djb(struct listnode **hashtab, char *key, int value)
 {
     struct listnode *node;
-    int index = xor_hash(key);
+    int index = djb_hash(key);
     node = malloc(sizeof(*node));
     if (node != NULL) {
         node->key = key;
@@ -62,11 +67,11 @@ struct listnode *hashtab_lookup(struct listnode **hashtab, char *key)
     return NULL;
 }
 
-struct listnode *hashtab_lookup_xor(struct listnode **hashtab, char *key)
+struct listnode *hashtab_lookup_djb(struct listnode **hashtab, char *key)
 {
     int index;
     struct listnode *node;
-    index = xor_hash(key);
+    index = djb_hash(key);
     for (node = hashtab[index]; node != NULL; node = node -> next)
         if (strcmp(node->key, key) == 0)
             return node;

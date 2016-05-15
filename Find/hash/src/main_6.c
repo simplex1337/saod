@@ -20,19 +20,19 @@ double wtime()
 int main()
 {
     //struct listnode *hashtab_kp[HASHTAB_SIZE]; //хеш-таблица, создаваемая по алгоритму Кернигана и Пайка
-    //struct listnode *hashtab_xor[HASHTAB_SIZE];//хеш-таблица, создаваемая по алгоритму xor
+    //struct listnode *hashtab_djb[HASHTAB_SIZE];//хеш-таблица, создаваемая по алгоритму djb
     FILE *data = fopen("base.txt", "r");
-    int i, n, table_kp[HASHTAB_SIZE] = {0}, table_xor[HASHTAB_SIZE] = {0};
+    int i, n, table_kp[HASHTAB_SIZE] = {0}, table_djb[HASHTAB_SIZE] = {0};
     for (i = 0; i < 200000; i++)
         fscanf(data, "%s\n", word[i]);
     fclose(data);
     hashtab_init(hashtab_kp);
-    hashtab_init(hashtab_xor);  
+    hashtab_init(hashtab_djb);  
     for (i = 1; i <= 200000; i++) {
         hashtab_add_kp(hashtab_kp, word[i - 1], i - 1);
-        hashtab_add_xor(hashtab_xor, word[i - 1], i - 1);
+        hashtab_add_djb(hashtab_djb, word[i - 1], i - 1);
         table_kp[hashtab_hash(word[i - 1])] += 1;
-        table_xor[xor_hash(word[i - 1])] += 1;
+        table_djb[djb_hash(word[i - 1])] += 1;
         if (i % 10000 == 0) {
             FILE *log = fopen("hash_6.log", "a");
             fprintf(log, "%d\t", i);
@@ -42,21 +42,21 @@ int main()
             struct listnode *find = hashtab_lookup(hashtab_kp, w);
             t = wtime() - t;
             printf("%s\n", find->key);
-            int collision_kp = 0, collision_xor = 0;
+            int collision_kp = 0, collision_djb = 0;
             for (n = 0; n < HASHTAB_SIZE; n++)
                 if (table_kp[n] > 0)
                     collision_kp++;
             printf("kp, n = %d; time = %.6f; collision = %d\n", i, t, collision_kp);
             fprintf(log, "%.6f\t%d\t", t, collision_kp);
             t = wtime();
-            find = hashtab_lookup_xor(hashtab_xor, w);
+            find = hashtab_lookup_djb(hashtab_djb, w);
             t = wtime() - t;
             printf("%s\n", find->key);
             for (n = 0; n < HASHTAB_SIZE; n++)
-                if (table_xor[n] > 0)
-                    collision_xor++;
-            printf("xor, n = %d; time = %.6f; collision = %d\n", i, t, collision_xor);
-            fprintf(log, "%.6f\t%d\n", t, collision_xor);
+                if (table_djb[n] > 0)
+                    collision_djb++;
+            printf("djb, n = %d; time = %.6f; collision = %d\n", i, t, collision_djb);
+            fprintf(log, "%.6f\t%d\n", t, collision_djb);
             fclose(log);
         }
     }

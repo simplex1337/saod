@@ -1,7 +1,7 @@
 all: hash_1 hash_2 hash_6 bstree_1 bstree_2
 
 clean: 
-	rm -rf hash_1 hash_2 bstree_1 hash_6 bstree_5 ./hash/obj/* ./bstree/obj/*
+	rm -rf hash_1 hash_2 bstree_1 bstree_2 hash_6 bstree_5 ./hash/obj/* ./bstree/obj/*
 
 hash_1: ./hash/obj/main.o ./hash/obj/hash.o
 	gcc -o hash_1 ./hash/obj/main.o ./hash/obj/hash.o

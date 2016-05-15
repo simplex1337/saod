@@ -33,7 +33,7 @@ int main()
         if (i % 10000 == 0) {
 			double tt = wtime() - t;
 			printf("n = %d; time = %.6f\n", i, tt);
-			FILE *log = fopen("bstree_1.log", "a");
+			FILE *log = fopen("bstree_2.log", "a");
 			fprintf(log, "%d\t%.6f\n", i, tt);
 			fclose(log);
 		}
