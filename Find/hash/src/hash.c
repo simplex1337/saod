@@ -1,6 +1,6 @@
 #include "hash.h"
 
-#define DJBHASH_MAX_BUCKETS 65536
+//#define DJBHASH_MAX_BUCKETS 65536
 
 unsigned int hashtab_hash(char *key)
 {
@@ -20,11 +20,8 @@ unsigned int djb_hash(char *key)
     for (p = key; *p != '\0'; p++)
 		len++;
     for (i = 0; i < len; i++)
-    {
         h = 33 * h + p[i];
-    }
-
-    return h;
+    return h % HASHTAB_SIZE;
 }
 
 void hashtab_init(struct listnode **hashtab)
