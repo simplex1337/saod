@@ -19,8 +19,6 @@ double wtime()
 
 int main()
 {
-    //struct listnode *hashtab_kp[HASHTAB_SIZE]; //хеш-таблица, создаваемая по алгоритму Кернигана и Пайка
-    //struct listnode *hashtab_xor[HASHTAB_SIZE];//хеш-таблица, создаваемая по алгоритму xor
     FILE *data = fopen("base.txt", "r");
     int i, n, table_kp[HASHTAB_SIZE] = {0}, table_xor[HASHTAB_SIZE] = {0};
     for (i = 0; i < 200000; i++)
@@ -44,7 +42,7 @@ int main()
             printf("%s\n", find->key);
             int collision_kp = 0, collision_xor = 0;
             for (n = 0; n < HASHTAB_SIZE; n++)
-                if (table_kp[n] > 0)
+                if (table_kp[n] > n)
                     collision_kp++;
             printf("kp, n = %d; time = %.6f; collision = %d\n", i, t, collision_kp);
             fprintf(log, "%.6f\t%d\t", t, collision_kp);
@@ -53,7 +51,7 @@ int main()
             t = wtime() - t;
             printf("%s\n", find->key);
             for (n = 0; n < HASHTAB_SIZE; n++)
-                if (table_xor[n] > 0)
+                if (table_xor[n] > n)
                     collision_xor++;
             printf("xor, n = %d; time = %.6f; collision = %d\n", i, t, collision_xor);
             fprintf(log, "%.6f\t%d\n", t, collision_xor);
