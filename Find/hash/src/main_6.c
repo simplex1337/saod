@@ -19,8 +19,6 @@ double wtime()
 
 int main()
 {
-    //struct listnode *hashtab_kp[HASHTAB_SIZE]; //хеш-таблица, создаваемая по алгоритму Кернигана и Пайка
-    //struct listnode *hashtab_djb[HASHTAB_SIZE];//хеш-таблица, создаваемая по алгоритму djb
     FILE *data = fopen("base.txt", "r");
     int i, n, table_kp[HASHTAB_SIZE] = {0}, table_djb[HASHTAB_SIZE] = {0};
     for (i = 0; i < 200000; i++)
@@ -44,7 +42,7 @@ int main()
             printf("%s\n", find->key);
             int collision_kp = 0, collision_djb = 0;
             for (n = 0; n < HASHTAB_SIZE; n++)
-                if (table_kp[n] > 0)
+                if (table_kp[n] > n)
                     collision_kp++;
             printf("kp, n = %d; time = %.6f; collision = %d\n", i, t, collision_kp);
             fprintf(log, "%.6f\t%d\t", t, collision_kp);
@@ -53,7 +51,7 @@ int main()
             t = wtime() - t;
             printf("%s\n", find->key);
             for (n = 0; n < HASHTAB_SIZE; n++)
-                if (table_djb[n] > 0)
+                if (table_djb[n] > n)
                     collision_djb++;
             printf("djb, n = %d; time = %.6f; collision = %d\n", i, t, collision_djb);
             fprintf(log, "%.6f\t%d\n", t, collision_djb);
